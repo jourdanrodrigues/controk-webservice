@@ -11,13 +11,7 @@ DEBUG = bool(os.environ.get('DEBUG', False))
 
 ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+LOCAL_APPS = [
     'controk_webservice.addresses',
     'controk_webservice.clients',
     'controk_webservice.contacts',
@@ -25,6 +19,19 @@ INSTALLED_APPS = [
     'controk_webservice.stock',
     'controk_webservice.suppliers',
 ]
+
+THIRD_APPS = [
+    'rest_framework',
+]
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+] + THIRD_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
