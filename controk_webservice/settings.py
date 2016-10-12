@@ -18,6 +18,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'controk_webservice.addresses',
+    'controk_webservice.clients',
+    'controk_webservice.contacts',
+    'controk_webservice.employees',
+    'controk_webservice.stock',
+    'controk_webservice.suppliers',
 ]
 
 MIDDLEWARE = [
