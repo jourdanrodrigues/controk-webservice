@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('cpf', models.CharField(max_length=14)),
                 ('name', models.CharField(max_length=60)),
-                ('observation', models.TextField()),
+                ('observation', models.TextField(null=True)),
                 ('address', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='clients', to='addresses.Address')),
                 ('contact', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='clients', to='contacts.Contact')),
             ],

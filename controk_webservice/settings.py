@@ -43,6 +43,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if DEBUG and bool(os.environ.get('QUERIES_LOG', False)):
+    MIDDLEWARE += ['controk_webservice.assets.middleware.query.QueriesLog']
+
 ROOT_URLCONF = 'controk_webservice.urls'
 
 TEMPLATES = [
