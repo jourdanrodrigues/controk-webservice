@@ -19,6 +19,7 @@ LOCAL_APPS = [
     'controk_webservice.employees',
     'controk_webservice.stock',
     'controk_webservice.suppliers',
+    'controk_webservice.users'
 ]
 
 THIRD_APPS = [
@@ -96,3 +97,5 @@ USE_L10N = True
 USE_TZ = False
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'users.User'

@@ -1,3 +1,4 @@
+from django.contrib.admin import site
 from django.db import models
 
 from controk_webservice.addresses.models import Address
@@ -14,3 +15,6 @@ class Client(models.Model):
 
     class Meta:
         db_table = 'Client'
+
+
+site.register(Client)

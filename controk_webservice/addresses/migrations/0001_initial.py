@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             name='Address',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('place', models.CharField(choices=[(1, 'Rua'), (2, 'Avenida'), (3, 'Travessa')], max_length=20)),
+                ('place', models.IntegerField(choices=[(1, 'Rua'), (2, 'Avenida'), (3, 'Travessa')])),
                 ('place_name', models.CharField(max_length=60)),
                 ('number', models.IntegerField(null=True)),
                 ('complement', models.CharField(max_length=20, null=True)),

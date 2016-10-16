@@ -1,3 +1,4 @@
+from django.contrib.admin import site
 from django.db import models
 
 
@@ -11,7 +12,7 @@ class Address(models.Model):
         (SIDE_STREET, 'Travessa'),
     )
 
-    place = models.CharField(choices=PLACES, max_length=20)
+    place = models.IntegerField(choices=PLACES)
     place_name = models.CharField(max_length=60)
     number = models.IntegerField(null=True)
     complement = models.CharField(max_length=20, null=True)
@@ -22,3 +23,6 @@ class Address(models.Model):
 
     class Meta:
         db_table = 'Address'
+
+
+site.register(Address)

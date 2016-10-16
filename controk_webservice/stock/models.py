@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.admin import site
 from django.db import models
 
 from controk_webservice.employees.models import Employee
@@ -51,3 +52,10 @@ class StockHistory(models.Model):
 
     class Meta:
         db_table = 'StockHistory'
+
+
+site.register(Shipment)
+site.register(Stock)
+site.register(StockHistory)
+site.register(ProductShipment)
+site.register(Product)
