@@ -16,7 +16,6 @@ ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
 LOCAL_APPS = [
     'controk_webservice.addresses',
     'controk_webservice.clients',
-    'controk_webservice.contacts',
     'controk_webservice.employees',
     'controk_webservice.stock',
     'controk_webservice.suppliers',
@@ -46,7 +45,7 @@ MIDDLEWARE = [
 ]
 
 if DEBUG and bool(os.environ.get('QUERIES_LOG', False)):
-    MIDDLEWARE += ['controk_webservice.assets.middleware.query.QueriesLog']
+    MIDDLEWARE += ['assets.middleware.query.QueriesLog']
 
 ROOT_URLCONF = 'controk_webservice.urls'
 

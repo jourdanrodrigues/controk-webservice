@@ -1,16 +1,17 @@
 from django.db import models
 
 from controk_webservice.addresses.models import Address
-from controk_webservice.contacts.models import Contact
 
 
 class Employee(models.Model):
     address = models.ForeignKey(Address, related_name='employees')
-    contact = models.ForeignKey(Contact, related_name='employees')
-    role = models.CharField(max_length=40)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=20, null=True)
+    phone = models.CharField(max_length=20, null=True)
     cpf = models.CharField(max_length=14)
     name = models.CharField(max_length=60)
-    observation = models.TextField()
+    observation = models.TextField(null=True)
+    role = models.CharField(max_length=40)
 
     class Meta:
         db_table = 'Employee'
