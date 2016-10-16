@@ -66,6 +66,10 @@ TEMPLATES = [
     },
 ]
 
+FIXTURE_DIRS = [
+    'assets.fixtures'
+]
+
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', None))}
