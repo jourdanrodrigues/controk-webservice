@@ -1,0 +1,16 @@
+[
+{
+  "model": "employees.employee",
+  "pk": 1,
+  "fields": {
+    "address": 1,
+    "email": "claudioturio@gmail.com",
+    "mobile": "85985697432",
+    "phone": "8538941274",
+    "cpf": "82215284714",
+    "name": "Claudio Turio",
+    "observation": "No obs.",
+    "role": "Developer"
+  }
+}
+]

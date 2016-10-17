@@ -1,0 +1,15 @@
+[
+{
+  "model": "clients.client",
+  "pk": 1,
+  "fields": {
+    "address": 1,
+    "email": "nersoncurl@gmail.com",
+    "mobile": "85999819702",
+    "phone": "8534573170",
+    "cpf": "38256203790",
+    "name": "Nerson Curl",
+    "observation": "No obs."
+  }
+}
+]

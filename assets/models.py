@@ -7,7 +7,6 @@ from assets.utils import is_cpf_valid
 
 
 class CustomAPITestCase(APITestCase):
-    fixtures = ['data.json']
     request_kwargs = {'format': 'json'}
 
     def bulkAssertIn(self, items: list, data, is_list: bool = False):

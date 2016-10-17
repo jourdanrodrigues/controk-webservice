@@ -1,0 +1,16 @@
+[
+{
+  "model": "addresses.address",
+  "pk": 1,
+  "fields": {
+    "place": 1,
+    "place_name": "Julio Gonzaga",
+    "number": 34,
+    "complement": "A",
+    "neighborhood": "Leiloeiro",
+    "city": "Jumineira",
+    "state": "Paraná",
+    "cep": "62200000"
+  }
+}
+]

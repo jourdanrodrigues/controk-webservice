@@ -90,3 +90,6 @@ ENV/
 
 # Directories
 .idea/
+
+# Custom
+assets/fixtures/data.json
