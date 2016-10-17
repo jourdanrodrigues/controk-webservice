@@ -22,6 +22,7 @@ LOCAL_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 INSTALLED_APPS = [
