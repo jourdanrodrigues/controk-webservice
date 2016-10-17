@@ -2,16 +2,14 @@ import os
 
 import dj_database_url
 
-PROJECT_VERSION = '0.0.1'
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '44m*-49@=blr^dmjxn2iq2@ebqpoen#$w%6r+%l-b5!_ups3k1'
 
-DEBUG = bool(os.environ.get('DEBUG', False))
+DEBUG = bool(os.getenv('DEBUG', False))
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '*')]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',') if DEBUG else ['']
 
 LOCAL_APPS = [
     'controk_webservice.addresses',
@@ -45,7 +43,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG and bool(os.environ.get('QUERIES_LOG', False)):
+if DEBUG and bool(os.getenv('QUERIES_LOG')):
     MIDDLEWARE += ['assets.middleware.query.QueriesLog']
 
 ROOT_URLCONF = 'controk_webservice.urls'
@@ -67,12 +65,12 @@ TEMPLATES = [
 ]
 
 FIXTURE_DIRS = [
-    'assets.fixtures'
+    'assets/fixtures'
 ]
 
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
 
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL', None))}
+DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))}
 # DB_URL=postgres://{USER}:{PASSWORD}@{HOST}/{DB_NAME}
 
 AUTH_PASSWORD_VALIDATORS = [
