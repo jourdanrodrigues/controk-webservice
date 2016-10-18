@@ -5,7 +5,7 @@ from controk_webservice.employees.models import Employee
 
 
 class EmployeeTest(CustomAPITestCase):
-    fixtures = ['employees.json', 'addresses.json']
+    fixtures = ['employees', 'addresses']
     items = ['id', 'name', 'email', 'cpf', 'observation', 'role']
 
     def test_employees_list(self):

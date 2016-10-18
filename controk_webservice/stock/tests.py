@@ -5,7 +5,7 @@ from controk_webservice.stock.models import Product, Shipment
 
 
 class ProductTest(CustomAPITestCase):
-    fixtures = ['products.json']
+    fixtures = ['products']
     items = ['id', 'description', 'cost', 'name', 'sell_value']
 
     def test_products_list(self):
@@ -23,7 +23,7 @@ class ProductTest(CustomAPITestCase):
 
 
 class ShipmentTest(CustomAPITestCase):
-    fixtures = ['shipments.json', 'suppliers.json', 'addresses.json']
+    fixtures = ['shipments', 'suppliers', 'addresses']
     items = ['id', 'delivery_date', 'payment_date', 'order_date']
 
     def test_shipments_list(self):

@@ -5,7 +5,7 @@ from controk_webservice.suppliers.models import Supplier
 
 
 class EmployeeTest(CustomAPITestCase):
-    fixtures = ['suppliers.json', 'addresses.json']
+    fixtures = ['suppliers', 'addresses']
     items = ['id', 'email', 'cnpj', 'trading_name']
 
     def test_suppliers_list(self):

@@ -5,7 +5,7 @@ from controk_webservice.clients.models import Client
 
 
 class ClientTest(CustomAPITestCase):
-    fixtures = ['clients.json', 'addresses.json']
+    fixtures = ['clients', 'addresses']
     items = ['id', 'name', 'email', 'cpf', 'observation']
 
     def test_clients_list(self):
