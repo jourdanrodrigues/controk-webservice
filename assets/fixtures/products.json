@@ -1,0 +1,12 @@
+[
+{
+  "model": "stock.product",
+  "pk": 1,
+  "fields": {
+    "description": "Some random product description",
+    "cost": 4.0,
+    "name": "Cool product",
+    "sell_value": 5.0
+  }
+}
+]

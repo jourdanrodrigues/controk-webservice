@@ -1,0 +1,12 @@
+[
+{
+  "model": "stock.shipment",
+  "pk": 1,
+  "fields": {
+    "supplier": 1,
+    "delivery_date": "2016-10-18",
+    "payment_date": "2016-10-18",
+    "order_date": "2016-10-18"
+  }
+}
+]
