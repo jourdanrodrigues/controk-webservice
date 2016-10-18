@@ -13,3 +13,4 @@ dump addresses.address addresses
 dump clients.client clients
 dump employees.employee employees
 dump users.user users
+dump suppliers.supplier suppliers

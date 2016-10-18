@@ -5,10 +5,12 @@ from rest_framework_swagger.views import get_swagger_view
 
 from controk_webservice.clients.views import ClientsViewSet
 from controk_webservice.employees.views import EmployeesViewSet
+from controk_webservice.suppliers.views import SuppliersViewSet
 
 router = DefaultRouter()
 router.register(r'clients', ClientsViewSet)
 router.register(r'employees', EmployeesViewSet)
+router.register(r'suppliers', SuppliersViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

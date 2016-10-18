@@ -1,0 +1,14 @@
+[
+{
+  "model": "suppliers.supplier",
+  "pk": 1,
+  "fields": {
+    "address": 1,
+    "email": "a.supplier@test.net",
+    "mobile": null,
+    "phone": null,
+    "cnpj": "121231234567",
+    "trading_name": "A Supplier"
+  }
+}
+]
