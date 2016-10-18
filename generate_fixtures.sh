@@ -9,10 +9,14 @@ function dump () {
     python manage.py dumpdata ${INDENT} $1 > ${FIXTURES_PATH}$2.json
 }
 
-dump addresses.address addresses
-dump clients.client clients
-dump employees.employee employees
-dump users.user users
-dump suppliers.supplier suppliers
-dump stock.product products
-dump stock.shipment shipments
+if [ "$1" != "" ] && [ "$2" != "" ]; then
+    dump $1 $2
+else
+    dump addresses.address addresses
+    dump clients.client clients
+    dump employees.employee employees
+    dump users.user users
+    dump suppliers.supplier suppliers
+    dump stock.product products
+    dump stock.shipment shipments
+fi
