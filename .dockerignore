@@ -1,0 +1,9 @@
+# Files
+.env*
+.gitignore
+
+# Directories
+.git/
+.idea/
+static/
+venv/
