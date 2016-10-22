@@ -1,5 +1,5 @@
 __title__ = 'Controk WebService'
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __author__ = 'Jourdan Rodrigues'
 __copyright__ = 'Copyright 2016 Jourdan Rodrigues'
 
