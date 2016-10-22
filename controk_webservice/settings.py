@@ -1,6 +1,7 @@
 import os
 
 import dj_database_url
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -8,6 +9,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '44m*-49@=blr^dmjxn2iq2@ebqpoen#$w%6r+%l-b5!_ups3k1'
 
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
+
+TEST = 'test' in sys.argv
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*' if DEBUG else '').split(',')
 
@@ -74,7 +77,11 @@ FIXTURE_DIRS = [
 
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
 
-DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))}
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'sqlite://:memory:' if TEST else None)
+    )
+}
 # DB_URL=postgres://{USER}:{PASSWORD}@{HOST}/{DB_NAME}
 
 AUTH_PASSWORD_VALIDATORS = [
