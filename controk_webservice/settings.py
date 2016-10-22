@@ -9,7 +9,7 @@ SECRET_KEY = '44m*-49@=blr^dmjxn2iq2@ebqpoen#$w%6r+%l-b5!_ups3k1'
 
 DEBUG = bool(os.getenv('DEBUG', False))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',') if DEBUG else ['']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*' if DEBUG else '').split(',')
 
 LOCAL_APPS = [
     'controk_webservice.addresses',
