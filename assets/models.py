@@ -2,14 +2,28 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
+from rest_framework.viewsets import GenericViewSet
 
 from assets.utils import is_cpf_valid
+
+
+class MultiSerializerViewSet(GenericViewSet):
+    serializers = {'default': None}
+
+    def get_serializer_class(self):
+        assert self.serializers.get('default') is not None, (
+            "'%s' should include a `serializers` attribute as a dictionary"
+            " with a `default` key containing the serializer."
+            % self.__class__.__name__
+        )
+
+        return self.serializers.get(self.action, self.serializers.get('default'))
 
 
 class CustomAPITestCase(APITestCase):
     request_kwargs = {'format': 'json'}
 
-    def bulkAssertIn(self, items: list, data, is_list: bool = False):
+    def bulkAssertIn(self, items, data, is_list: bool = False):
         """
         Source: https://github.com/jourdanrodrigues/drf_test_utils/blob/master/functions.py
         :param self: object
@@ -26,14 +40,58 @@ class CustomAPITestCase(APITestCase):
             else:
                 return
 
-        # Check if these are the only attributes in the dictionary
-        self.assertEqual(len(items), len(data),
-                         msg='Missing attributes: ' + (', '.join([x for x in items if x not in data])
-                                                       if len(items) > len(data) else
-                                                       ', '.join([x for x in data if x not in items])))
-        for item in items:
-            # Check the existence of each field
-            self.assertIn(item, data)
+        def which_params(missing, containing):
+            def mount_list(attributes, its_list):
+                for attribute in attributes:
+                    if isinstance(attribute, dict):
+                        its_list += list(attribute.keys())
+                    else:
+                        its_list.append(attribute)
+
+            missing_attributes = []
+            containing_attributes = []
+
+            mount_list(missing, missing_attributes)
+            mount_list(containing, containing_attributes)
+
+            return ', '.join([x for x in missing_attributes if x not in containing_attributes])
+
+        def bulk_test(entries: list, target: dict):
+            len_entries = 0
+
+            # Check each entry
+            for entry in entries:
+                # If entry is a dict, target has sub items
+                if isinstance(entry, dict):
+                    for key, sub_entries in entry.items():
+                        len_entries += 1
+
+                        if isinstance(sub_entries, dict):  # Has a configuration
+                            if sub_entries.get('is_list'):
+                                target = target[0]
+                            if sub_entries.get('entries'):
+                                sub_entries = sub_entries.get('entries')  # List of entries to test
+                            elif sub_entries.get('value'):
+                                self.assertEqual(sub_entries['value'], target[key],  # Test specific value
+                                                 msg='"{key}": "{0} != {1}"'.format(sub_entries['value'], target[key],
+                                                                                    key=key))
+                                continue
+                            else:
+                                raise AssertionError('"{}" missing "entries" or "key" key.'.format(key))
+
+                        self.assertIn(key, target, msg='"{}" key missing.')
+                        bulk_test(sub_entries, target[key])
+                else:
+                    len_entries += 1
+                    self.assertIn(entry, target)
+
+            # Check if these are the only attributes in the dictionary
+            self.assertEqual(len_entries, len(target),
+                             msg='Missing keys: {}.'.format(which_params(entries, target)
+                                                            if len_entries > len(target) else
+                                                            which_params(target, entries)))
+
+        bulk_test(items, data)
 
 
 class Person(models.Model):
