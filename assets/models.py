@@ -23,7 +23,7 @@ class MultiSerializerViewSet(GenericViewSet):
 class CustomAPITestCase(APITestCase):
     request_kwargs = {'format': 'json'}
 
-    def bulkAssertIn(self, items: list, data, is_list: bool = False):
+    def bulkAssertIn(self, items, data, is_list: bool = False):
         """
         Source: https://github.com/jourdanrodrigues/drf_test_utils/blob/master/functions.py
         :param self: object
@@ -40,12 +40,21 @@ class CustomAPITestCase(APITestCase):
             else:
                 return
 
+        def first_dict_item(entry):
+            # Case for entry with configuration
+            return list(entry.keys())[0] if isinstance(entry, dict) else entry
+
+        def which_params(missing, containing):
+            # "missing" will be a dictionary (entry with configuration) or a string
+            missing = missing.keys() if isinstance(missing, dict) else missing
+            return ', '.join([first_dict_item(x) for x in missing if first_dict_item(x) not in containing])
+
         def bulk_test(entries, target: dict):
             # Check if these are the only attributes in the dictionary
             self.assertEqual(len(entries), len(target),
-                             msg='Missing keys: {}.'.format(', '.join([x for x in entries if x not in target])
+                             msg='Missing keys: {}.'.format(which_params(entries, target)
                                                             if len(entries) > len(target) else
-                                                            ', '.join([x for x in target if x not in entries])))
+                                                            which_params(target, entries)))
             # Check each entry
             for entry in entries:
                 # If entry is a dict, target has sub items
