@@ -40,26 +40,32 @@ class CustomAPITestCase(APITestCase):
             else:
                 return
 
-        def first_dict_item(entry):
-            # Case for entry with configuration
-            return list(entry.keys())[0] if isinstance(entry, dict) else entry
-
         def which_params(missing, containing):
-            # "missing" will be a dictionary (entry with configuration) or a string
-            missing = missing.keys() if isinstance(missing, dict) else missing
-            return ', '.join([first_dict_item(x) for x in missing if first_dict_item(x) not in containing])
+            def mount_list(attributes, its_list):
+                for attribute in attributes:
+                    if isinstance(attribute, dict):
+                        its_list += list(attribute.keys())
+                    else:
+                        its_list.append(attribute)
 
-        def bulk_test(entries, target: dict):
-            # Check if these are the only attributes in the dictionary
-            self.assertEqual(len(entries), len(target),
-                             msg='Missing keys: {}.'.format(which_params(entries, target)
-                                                            if len(entries) > len(target) else
-                                                            which_params(target, entries)))
+            missing_attributes = []
+            containing_attributes = []
+
+            mount_list(missing, missing_attributes)
+            mount_list(containing, containing_attributes)
+
+            return ', '.join([x for x in missing_attributes if x not in containing_attributes])
+
+        def bulk_test(entries: list, target: dict):
+            len_entries = 0
+
             # Check each entry
             for entry in entries:
                 # If entry is a dict, target has sub items
                 if isinstance(entry, dict):
                     for key, sub_entries in entry.items():
+                        len_entries += 1
+
                         if isinstance(sub_entries, dict):  # Has a configuration
                             if sub_entries.get('is_list'):
                                 target = target[0]
@@ -76,7 +82,14 @@ class CustomAPITestCase(APITestCase):
                         self.assertIn(key, target, msg='"{}" key missing.')
                         bulk_test(sub_entries, target[key])
                 else:
+                    len_entries += 1
                     self.assertIn(entry, target)
+
+            # Check if these are the only attributes in the dictionary
+            self.assertEqual(len_entries, len(target),
+                             msg='Missing keys: {}.'.format(which_params(entries, target)
+                                                            if len_entries > len(target) else
+                                                            which_params(target, entries)))
 
         bulk_test(items, data)
 
