@@ -68,7 +68,7 @@ class CustomAPITestCase(APITestCase):
 
                         if isinstance(sub_entries, dict):  # Has a configuration
                             if sub_entries.get('is_list'):
-                                target = target[0]
+                                target[key] = target[key][0]
                             if sub_entries.get('entries'):
                                 sub_entries = sub_entries.get('entries')  # List of entries to test
                             elif sub_entries.get('value'):
