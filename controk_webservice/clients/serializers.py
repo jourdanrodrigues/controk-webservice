@@ -11,8 +11,13 @@ class ClientListSerializer(serializers.ModelSerializer):
 
 
 class ClientSerializer(serializers.ModelSerializer):
+    place_options = serializers.SerializerMethodField()
     address = AddressSerializer()
+
+    @staticmethod
+    def get_place_options(client):
+        return dict(client.address.PLACES)
 
     class Meta:
         model = Client
-        fields = ['phone', 'mobile', 'address']
+        fields = ['phone', 'mobile', 'address', 'place_options']

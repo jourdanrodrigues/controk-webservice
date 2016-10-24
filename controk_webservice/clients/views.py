@@ -10,3 +10,12 @@ class ClientsViewSet(MultiSerializerViewSet, viewsets.ReadOnlyModelViewSet):
         'default': ClientSerializer,
         'list': ClientListSerializer
     }
+
+    def get_queryset(self):
+        queryset = self.queryset
+
+        # Bring the address within the main query only on retrieve
+        if self.action == 'retrieve':
+            queryset = queryset.select_related('address')
+
+        return queryset
