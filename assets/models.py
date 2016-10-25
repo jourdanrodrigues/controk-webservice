@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext as _
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
 from rest_framework.viewsets import GenericViewSet
 
 from assets.utils import is_cpf_valid
+from controk_webservice.addresses.serializers import AddressSerializer
 
 
 class MultiSerializerViewSet(GenericViewSet):
@@ -113,3 +115,15 @@ class Person(models.Model):
 
     class Meta:
         abstract = True
+
+
+class PersonInfoSerializer(serializers.ModelSerializer):
+    place_options = serializers.SerializerMethodField()
+    address = AddressSerializer()
+
+    @staticmethod
+    def get_place_options(client):
+        return dict(client.address.PLACES)
+
+    class Meta:
+        fields = ['phone', 'mobile', 'address', 'place_options']

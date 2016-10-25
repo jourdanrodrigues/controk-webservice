@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from controk_webservice.addresses.serializers import AddressSerializer
+from assets.models import PersonInfoSerializer
 from controk_webservice.employees.models import Employee
 
 
@@ -10,14 +10,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'role', 'name', 'cpf', 'observation']
 
 
-class EmployeeInfoSerializer(serializers.ModelSerializer):
-    place_options = serializers.SerializerMethodField()
-    address = AddressSerializer()
-
-    @staticmethod
-    def get_place_options(employee):
-        return dict(employee.address.PLACES)
-
-    class Meta:
+class EmployeeInfoSerializer(PersonInfoSerializer):
+    class Meta(PersonInfoSerializer.Meta):
         model = Employee
-        fields = ['phone', 'mobile', 'address', 'place_options']
