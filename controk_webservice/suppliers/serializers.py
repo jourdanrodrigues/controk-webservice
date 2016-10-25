@@ -5,6 +5,12 @@ from controk_webservice.suppliers.models import Supplier
 
 
 class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ['id', 'email', 'cnpj', 'trading_name']
+
+
+class SupplierInfoSerializer(serializers.ModelSerializer):
     place_options = serializers.SerializerMethodField()
     address = AddressSerializer()
 
@@ -15,9 +21,3 @@ class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = ['phone', 'mobile', 'address', 'place_options']
-
-
-class SupplierListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Supplier
-        fields = ['id', 'email', 'cnpj', 'trading_name']

@@ -5,6 +5,12 @@ from controk_webservice.employees.models import Employee
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['id', 'email', 'role', 'name', 'cpf', 'observation']
+
+
+class EmployeeInfoSerializer(serializers.ModelSerializer):
     place_options = serializers.SerializerMethodField()
     address = AddressSerializer()
 
@@ -15,9 +21,3 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['phone', 'mobile', 'address', 'place_options']
-
-
-class EmployeeListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Employee
-        fields = ['id', 'email', 'role', 'name', 'cpf', 'observation']

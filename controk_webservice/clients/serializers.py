@@ -5,6 +5,12 @@ from controk_webservice.clients.models import Client
 
 
 class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = ['id', 'name', 'email', 'cpf', 'observation']
+
+
+class ClientInfoSerializer(serializers.ModelSerializer):
     place_options = serializers.SerializerMethodField()
     address = AddressSerializer()
 
@@ -15,9 +21,3 @@ class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ['phone', 'mobile', 'address', 'place_options']
-
-
-class ClientListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = ['id', 'name', 'email', 'cpf', 'observation']
