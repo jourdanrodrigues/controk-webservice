@@ -4,13 +4,13 @@ from controk_webservice.addresses.serializers import AddressSerializer
 from controk_webservice.clients.models import Client
 
 
-class ClientListSerializer(serializers.ModelSerializer):
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ['id', 'name', 'email', 'cpf', 'observation']
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class ClientInfoSerializer(serializers.ModelSerializer):
     place_options = serializers.SerializerMethodField()
     address = AddressSerializer()
 

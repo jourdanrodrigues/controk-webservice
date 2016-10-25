@@ -1,21 +1,17 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 
-from assets.models import MultiSerializerViewSet
-from controk_webservice.clients.serializers import Client, ClientListSerializer, ClientSerializer
+from controk_webservice.clients.serializers import Client, ClientSerializer, ClientInfoSerializer
 
 
-class ClientsViewSet(MultiSerializerViewSet, viewsets.ReadOnlyModelViewSet):
+class ClientsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Client.objects.all()
-    serializers = {
-        'default': ClientSerializer,
-        'list': ClientListSerializer
-    }
+    serializer_class = ClientSerializer
 
-    def get_queryset(self):
-        queryset = self.queryset
+    @detail_route(methods=['GET'])
+    def info(self, request, pk):
+        employee = get_object_or_404(self.queryset.select_related('address'), pk=pk)
 
-        # Bring the address within the main query only on retrieve
-        if self.action == 'retrieve':
-            queryset = queryset.select_related('address')
-
-        return queryset
+        return Response(ClientInfoSerializer(employee).data)
