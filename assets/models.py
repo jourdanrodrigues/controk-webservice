@@ -123,7 +123,7 @@ class PersonInfoSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_place_options(client):
-        return dict(client.address.PLACES)
+        return [{'id': key, 'name': value} for key, value in dict(client.address.PLACES).items()]
 
     class Meta:
         fields = ['phone', 'mobile', 'address', 'place_options']
