@@ -5,7 +5,6 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
 from rest_framework.viewsets import GenericViewSet
 
-from assets.utils import is_cpf_valid
 from controk_webservice.addresses.serializers import AddressSerializer
 
 
@@ -103,15 +102,6 @@ class Person(models.Model):
     cpf = models.CharField(max_length=14)
     name = models.CharField(max_length=60)
     observation = models.TextField(null=True)
-
-    def is_cpf_valid(self):
-        return is_cpf_valid(self.cpf)
-
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.is_cpf_valid():
-            super(Person, self).save(force_insert, force_update, using, update_fields)
-        else:
-            raise ValidationError(_("CPF is not valid."))
 
     class Meta:
         abstract = True
