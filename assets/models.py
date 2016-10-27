@@ -1,27 +1,11 @@
 from django.db import models
-from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
-from rest_framework.viewsets import GenericViewSet
 
 from controk_webservice.addresses.serializers import AddressSerializer
 
 
-class MultiSerializerViewSet(GenericViewSet):
-    serializers = {'default': None}
-
-    def get_serializer_class(self):
-        assert self.serializers.get('default') is not None, (
-            "'%s' should include a `serializers` attribute as a dictionary"
-            " with a `default` key containing the serializer."
-            % self.__class__.__name__
-        )
-
-        return self.serializers.get(self.action, self.serializers.get('default'))
-
-
-class CustomAPITestCase(APITestCase):
+class CustomAPITestCase(APITestCase):  # pragma: no match
     request_kwargs = {'format': 'json'}
 
     def bulkAssertIn(self, items, data, is_list: bool = False):
@@ -78,7 +62,7 @@ class CustomAPITestCase(APITestCase):
                                                                                     key=key))
                                 continue
                             else:
-                                raise AssertionError('"{}" missing "entries" or "key" key.'.format(key))
+                                raise AssertionError('"{}" missing "entries" or "value" key.'.format(key))
 
                         self.assertIn(key, target, msg='"{}" key missing.')
                         bulk_test(sub_entries, target[key])

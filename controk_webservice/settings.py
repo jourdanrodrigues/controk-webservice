@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG and bool(os.getenv('QUERIES_LOG')):
+if DEBUG and bool(os.getenv('QUERIES_LOG')):  # pragma: no match
     MIDDLEWARE += ['assets.middleware.query.QueriesLog']
 
 ROOT_URLCONF = 'controk_webservice.urls'
