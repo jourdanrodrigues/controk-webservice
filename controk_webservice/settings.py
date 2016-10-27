@@ -1,7 +1,7 @@
 import os
-
-import dj_database_url
 import sys
+
+from dj_database_url import config as db_config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG and bool(os.getenv('QUERIES_LOG')):
+if DEBUG and bool(os.getenv('QUERIES_LOG')):  # pragma: no match
     MIDDLEWARE += ['assets.middleware.query.QueriesLog']
 
 ROOT_URLCONF = 'controk_webservice.urls'
@@ -77,11 +77,7 @@ FIXTURE_DIRS = [
 
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'sqlite://:memory:' if TEST else None)
-    )
-}
+DATABASES = {'default': db_config()}
 # DB_URL=postgres://{USER}:{PASSWORD}@{HOST}/{DB_NAME}
 
 AUTH_PASSWORD_VALIDATORS = [

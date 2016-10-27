@@ -1,28 +1,11 @@
 from django.db import models
-from django.utils.translation import ugettext as _
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 from rest_framework.test import APITestCase
-from rest_framework.viewsets import GenericViewSet
 
-from assets.utils import is_cpf_valid
 from controk_webservice.addresses.serializers import AddressSerializer
 
 
-class MultiSerializerViewSet(GenericViewSet):
-    serializers = {'default': None}
-
-    def get_serializer_class(self):
-        assert self.serializers.get('default') is not None, (
-            "'%s' should include a `serializers` attribute as a dictionary"
-            " with a `default` key containing the serializer."
-            % self.__class__.__name__
-        )
-
-        return self.serializers.get(self.action, self.serializers.get('default'))
-
-
-class CustomAPITestCase(APITestCase):
+class CustomAPITestCase(APITestCase):  # pragma: no match
     request_kwargs = {'format': 'json'}
 
     def bulkAssertIn(self, items, data, is_list: bool = False):
@@ -79,7 +62,7 @@ class CustomAPITestCase(APITestCase):
                                                                                     key=key))
                                 continue
                             else:
-                                raise AssertionError('"{}" missing "entries" or "key" key.'.format(key))
+                                raise AssertionError('"{}" missing "entries" or "value" key.'.format(key))
 
                         self.assertIn(key, target, msg='"{}" key missing.')
                         bulk_test(sub_entries, target[key])
@@ -104,15 +87,6 @@ class Person(models.Model):
     name = models.CharField(max_length=60)
     observation = models.TextField(null=True)
 
-    def is_cpf_valid(self):
-        return is_cpf_valid(self.cpf)
-
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        if self.is_cpf_valid():
-            super(Person, self).save(force_insert, force_update, using, update_fields)
-        else:
-            raise ValidationError(_("CPF is not valid."))
-
     class Meta:
         abstract = True
 
@@ -123,7 +97,7 @@ class PersonInfoSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_place_options(client):
-        return dict(client.address.PLACES)
+        return [{'id': key, 'name': value} for key, value in dict(client.address.PLACES).items()]
 
     class Meta:
         fields = ['phone', 'mobile', 'address', 'place_options']
