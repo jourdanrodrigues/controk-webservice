@@ -10,7 +10,9 @@ addons:
   - postgresql: "9.4"
 
 env:
-  - DATABASE_URL=postgres://user_name:user_password@localhost:5432/controk_db ALLOWED_HOSTS="*"
+  global:
+    - DATABASE_URL=postgres://user_name:user_password@localhost:5432/controk_db
+    - ALLOWED_HOSTS="*"
 
 install: "pip install -r requirements.txt coverage"
 

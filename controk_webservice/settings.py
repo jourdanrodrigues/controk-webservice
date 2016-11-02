@@ -75,6 +75,10 @@ FIXTURE_DIRS = [
     'assets/fixtures'
 ]
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
 
 DATABASES = {'default': db_config()}
