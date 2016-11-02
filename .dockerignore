@@ -1,9 +1,11 @@
 # Files
 .env*
 .gitignore
+docker-compose.yml
 
 # Directories
 .git/
 .idea/
+nginx/
 static/
 venv/
