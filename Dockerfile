@@ -7,4 +7,4 @@ WORKDIR /project/
 
 COPY . .
 RUN pip install -r requirements.txt
-RUN python manage.py compilemessages
+RUN python manage.py collectstatic --no-input && python manage.py compilemessages
