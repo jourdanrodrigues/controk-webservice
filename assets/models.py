@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 from controk_webservice.addresses.serializers import AddressSerializer
 
 
-class CustomAPITestCase(APITestCase):  # pragma: no match
+class CustomAPITestCase(APITestCase):  # pragma: no cover
     request_kwargs = {'format': 'json'}
 
     def bulkAssertIn(self, items, data, is_list: bool = False):
