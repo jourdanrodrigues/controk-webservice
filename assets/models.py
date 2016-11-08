@@ -2,23 +2,31 @@ from django.db import models
 from rest_framework import serializers
 from rest_framework.test import APITestCase
 
-from controk_webservice.addresses.serializers import AddressSerializer
+from controk_webservice.addresses.serializers import Address, AddressSerializer
+
+
+def get_place_options(places: tuple=None):
+    places = places or Address.PLACES
+    return [{'id': key, 'name': value} for key, value in dict(places).items()]
 
 
 class CustomAPITestCase(APITestCase):  # pragma: no cover
     request_kwargs = {'format': 'json'}
 
-    def bulkAssertIn(self, items, data, is_list: bool = False):
+    def bulkAssertIn(self, items, data, is_list: bool = False, list_length: int=None):
         """
         Source: https://github.com/jourdanrodrigues/drf_test_utils/blob/master/functions.py
         :param self: object
         :param items: list of keys that must be in the "data" (list)
         :param data: dictionary (or a list of dictionaries) to be tested (dict)
         :param is_list: Applies additional tests for the list if True (bool)
+        :param list_length: Length of the list sent (ignored if "is_list" is false)
         :return: Nothing
         """
         if is_list:
             self.assertIsInstance(data, list)
+            if list_length is not None:
+                self.assertEqual(len(data), list_length)
             if data and isinstance(data[0], dict):
                 # Get the first item to check its items
                 data = data[0]
@@ -96,8 +104,8 @@ class PersonInfoSerializer(serializers.ModelSerializer):
     address = AddressSerializer()
 
     @staticmethod
-    def get_place_options(client):
-        return [{'id': key, 'name': value} for key, value in dict(client.address.PLACES).items()]
+    def get_place_options(person):
+        return get_place_options(person.address.PLACES)
 
     class Meta:
         fields = ['phone', 'mobile', 'address', 'place_options']
