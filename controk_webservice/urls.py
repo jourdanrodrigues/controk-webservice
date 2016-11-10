@@ -3,7 +3,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework_swagger.views import get_swagger_view
 
-from controk_webservice.assets.views import AssetsViewSet
+from controk_webservice.assets.views import PlaceOptionsViewSet
 from controk_webservice.clients.views import ClientsViewSet
 from controk_webservice.employees.views import EmployeesViewSet
 from controk_webservice.stock.views import ProductsViewSet, ShipmentsViewSet
@@ -11,7 +11,7 @@ from controk_webservice.suppliers.views import SuppliersViewSet
 
 router = DefaultRouter()
 # Custom
-router.register(r'assets', AssetsViewSet, base_name='assets')
+router.register(r'place_options', PlaceOptionsViewSet, base_name='assets')
 # Model B
 router.register(r'clients', ClientsViewSet)
 router.register(r'employees', EmployeesViewSet)
