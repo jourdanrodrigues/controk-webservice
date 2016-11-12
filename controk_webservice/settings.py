@@ -2,6 +2,21 @@ import os
 import sys
 
 from dj_database_url import config as db_config
+from re import match
+
+# Start ".env" file reader
+# https://gist.github.com/bennylope/2999704
+try:
+    with open('../.env') as f:
+        content = f.read()
+except IOError:
+    content = ''
+
+for line in content.splitlines():
+    m1 = match(r'\A(?P<key>[A-Za-z_0-9]+)=(?P<value>.*)\Z', line)
+    if m1:
+        os.environ.setdefault(**m1.groupdict())
+# End ".env" file reader
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

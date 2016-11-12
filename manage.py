@@ -2,24 +2,6 @@
 import os
 import sys
 
-from re import match
-
-
-def read_env():
-    """
-    https://gist.github.com/bennylope/2999704
-    """
-    try:
-        with open('.env') as f:
-            content = f.read()
-    except IOError:
-        content = ''
-
-    for line in content.splitlines():
-        m1 = match(r'\A(?P<key>[A-Za-z_0-9]+)=(?P<value>.*)\Z', line)
-        if m1:
-            os.environ.setdefault(**m1.groupdict())
-
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "controk_webservice.settings")
     try:
@@ -37,6 +19,4 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
-
-    read_env()
     execute_from_command_line(sys.argv)
