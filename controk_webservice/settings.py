@@ -9,12 +9,12 @@ BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 # Start ".env" file reader
 # https://gist.github.com/bennylope/2999704
 try:
-    with open(path.join(BASE_DIR, '.env')) as f:
+    with open(path.join(BASE_DIR, '.env')) as f:  # pragma: no cover
         content = f.read()
 except IOError:
     content = ''
 
-for line in content.splitlines():
+for line in content.splitlines():  # pragma: no cover
     m1 = match(r'\A(?P<key>[A-Za-z_0-9]+)=(?P<value>.*)\Z', line)
     if m1:
         environ.setdefault(**m1.groupdict())
