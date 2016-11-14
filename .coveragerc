@@ -1,6 +1,6 @@
 [report]
 exclude_lines =
-    pragma: no match
+    pragma: no cover
     def __unicode__
     def __repr__
     def __str__

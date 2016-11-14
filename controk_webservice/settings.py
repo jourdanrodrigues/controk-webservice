@@ -1,18 +1,33 @@
-import os
-import sys
+from os import environ, getenv, path
+from sys import argv
 
 from dj_database_url import config as db_config
+from re import match
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+
+# Start ".env" file reader
+# https://gist.github.com/bennylope/2999704
+try:
+    with open(path.join(BASE_DIR, '.env')) as f:
+        content = f.read()
+except IOError:
+    content = ''
+
+for line in content.splitlines():
+    m1 = match(r'\A(?P<key>[A-Za-z_0-9]+)=(?P<value>.*)\Z', line)
+    if m1:
+        environ.setdefault(**m1.groupdict())
+# End ".env" file reader
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '44m*-49@=blr^dmjxn2iq2@ebqpoen#$w%6r+%l-b5!_ups3k1'
 
-DEBUG = bool(int(os.getenv('DEBUG', 0)))
+DEBUG = bool(int(getenv('DEBUG', 0)))
 
-TEST = 'test' in sys.argv
+TEST = 'test' in argv
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*' if DEBUG else '').split(',')
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', '*' if DEBUG else '').split(',')
 
 LOCAL_APPS = [
     'controk_webservice.addresses',
@@ -41,7 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -50,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DEBUG and bool(os.getenv('QUERIES_LOG')):  # pragma: no match
+if DEBUG and bool(getenv('QUERIES_LOG')):  # pragma: no cover
     MIDDLEWARE += ['assets.middleware.query.QueriesLog']
 
 ROOT_URLCONF = 'controk_webservice.urls'
@@ -72,11 +87,11 @@ TEMPLATES = [
 ]
 
 FIXTURE_DIRS = [
-    'assets/fixtures'
+    path.join(BASE_DIR, 'assets/fixtures')
 ]
 
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    path.join(BASE_DIR, 'locale'),
 ]
 
 WSGI_APPLICATION = 'controk_webservice.wsgi.application'
@@ -111,7 +126,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'users.User'
 
