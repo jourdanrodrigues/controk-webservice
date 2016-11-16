@@ -13,45 +13,48 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+These instructions will build the environment to run commands on the project.
 
-```
-Give examples
-```
+#### Based on "virtualenv"
+
+Assuming you already have [virtualenv](https://virtualenv.pypa.io/en/stable/) and Python v3.5 installed and have little idea of how to use them.
+
+- `virtualenv -p /path/to/python3.5 venv`;
+- `source venv/bin/activate`.
+
+#### Based on "docker"
+
+Assuming you have [docker compose](https://docs.docker.com/compose/) installed (along with [Docker](https://www.docker.com/)).
+
+- `docker-compose build`
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+#### Based on "virtualenv"
 
-Say what the step will be
+- Create `.env` file, based on `.env.example`, and set your environment as you wish;
+- `source venv/bin/activate`;
+- `python manage.py runserver`.
 
-```
-Give the example
-```
+The server must be running at [http://localhost:8000/].
 
-And repeat
+#### Based on "docker"
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+- The next command will give you a running server. Needing anything specific, change in `docker-compose.yml`;
+- `docker-compose up`.
 
 ## Running the tests
 
-### With "virtualenv"
+### Based on "virtualenv"
 
-Assuming you have [virtualenv](https://virtualenv.pypa.io/en/stable/) installed and knows how to use it.
+- Create a ".env" file base on ".env.example" in the project's root;
+- Run `pip install -r requirements.txt`;
+- Run `python manage.py test`.
 
-- Create a ".env" file base on ".env.example";
-- Run `virtualenv -p /path/to/python3.5 venv`
-- Run `source venv/bin/activate`
-- Run `pip install -r requirements.txt`
-- Run `python manage.py test`
+### Based on "docker"
 
-### With "docker"
-
-Assuming you have [docker-compose]() installed.
+- Open the `docker-compose.yml` file with your favorite text editor and change the `webservice` service command to `python manage.py test`;
+- `docker-compose up`.
 
 ## Deployment
 
@@ -73,6 +76,7 @@ Raise the project:
 * [Django](https://www.djangoproject.com/)
 * [Django REST Framework](http://www.django-rest-framework.org/)
 * [Docker](https://www.docker.com/)
+* [PostgreSQL](https://www.postgresql.org/)
 
 ## Versioning
 
