@@ -11,6 +11,8 @@
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+**Note**: This is the WebService part of the Controk system and may have some features faked for demonstrative purposes. [Click here](https://github.com/jourdanrodrigues/controk-docker) for the fully working system.
+
 ### Prerequisites
 
 These instructions will build the environment to run commands on the project.
