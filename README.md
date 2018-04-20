@@ -11,7 +11,7 @@
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-**Note**: This is the WebService part of the Controk system and may have some features faked for demonstrative purposes. [Click here](https://github.com/jourdanrodrigues/controk-docker) for the fully working system.
+**Note**: This is the WebService part of the Controk system and may have some features faked for demonstrative purposes. [Click here](https://github.com/controk-sys/infra) for the fully working system.
 
 ### Prerequisites
 
@@ -62,7 +62,7 @@ The server must be running at [http://localhost:8000/].
 
 Clone the project:
 
-`git clone https://github.com/jourdanrodrigues/controk-webservice`
+`git clone https://github.com/controk-sys/http-server .`
 
 Build the project with docker compose:
 
@@ -82,7 +82,7 @@ Raise the project:
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/jourdanrodrigues/controk-webservice/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/controk-sys/http-server/tags). 
 
 ## Authors
 
@@ -94,14 +94,14 @@ See also the list of [contributors][contributors] who participated in this proje
 
 This project is licensed under the MIT License - see the [LICENSE][license] file for details
 
-[code-climate-badge]: https://codeclimate.com/github/jourdanrodrigues/controk-webservice/badges/gpa.svg
-[code-climate]: https://codeclimate.com/github/jourdanrodrigues/controk-webservice
-[codecov-badge]: https://codecov.io/gh/jourdanrodrigues/controk-webservice/branch/master/graph/badge.svg
-[codecov]: https://codecov.io/gh/jourdanrodrigues/controk-webservice
-[docker]: https://img.shields.io/docker/automated/jourdanrodrigues/controk-webservice.svg
-[license-badge]: https://img.shields.io/github/license/jourdanrodrigues/controk-webservice.svg
-[license]: https://github.com/jourdanrodrigues/controk-webservice/blob/master/LICENSE
-[travis-badge]: https://travis-ci.org/jourdanrodrigues/controk-webservice.svg?branch=master
-[travis]: https://travis-ci.org/jourdanrodrigues/controk-webservice?branch=master
+[code-climate-badge]: https://codeclimate.com/github/controk-sys/http-server/badges/gpa.svg
+[code-climate]: https://codeclimate.com/github/controk-sys/http-server
+[codecov-badge]: https://codecov.io/gh/controk-sys/http-server/branch/master/graph/badge.svg
+[codecov]: https://codecov.io/gh/controk-sys/http-server
+[docker]: https://img.shields.io/docker/automated/controk-sys/http-server.svg
+[license-badge]: https://img.shields.io/github/license/controk-sys/http-server.svg
+[license]: https://github.com/controk-sys/http-server/blob/master/LICENSE
+[travis-badge]: https://travis-ci.org/controk-sys/http-server.svg?branch=master
+[travis]: https://travis-ci.org/controk-sys/http-server?branch=master
 
-[contributors]: https://github.com/jourdanrodrigues/controk-webservice/contributors
+[contributors]: https://github.com/controk-sys/http-server/contributors
